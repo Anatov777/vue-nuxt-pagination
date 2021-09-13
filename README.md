@@ -1,3 +1,1 @@
-# Demo
-
-https://anatov777.github.io/vue-nuxt-pagination/
+# vue-nuxt-pagination
