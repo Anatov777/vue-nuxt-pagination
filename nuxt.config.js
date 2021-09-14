@@ -45,11 +45,11 @@ export default {
   },
 
   router: {
-    extendRoutes (routes, resolve) {
+    base: '/vue-nuxt-pagination/',
+    extendRoutes (routes) {
       routes.push({
         path: '/',
         redirect: '/catalog'
-        // component: resolve(__dirname, 'pages/catalog/index.vue')
       })
     }
   }
