@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pagination__wrapper">
     <button
       class="show-more"
       :disabled="activePage === totalPages"
@@ -208,6 +208,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.pagination__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .page__wrapper {
   display: flex;
   gap: 10px;
@@ -253,6 +259,9 @@ a {
   align-items: center;
   padding: 10px;
   border: none;
+  @media (max-width: 768px) {
+    max-width: 450px;
+  }
 }
 .pagination {
   display: flex;
