@@ -92,7 +92,9 @@ export default {
         pages.push(this.totalPages)
       } else if (this.activePage >= this.totalPages - 4) {
         pages.push(1)
-        pages.push(this.middlePageNumber)
+        if (this.totalPages >= 40) {
+          pages.push(this.middlePageNumber)
+        }
 
         if (this.activePage === this.totalPages - 4) {
           pages.push(this.activePage - 2)
@@ -103,6 +105,9 @@ export default {
         }
       } else {
         pages.push(1)
+        if (this.activePage === 5) {
+          pages.push(2)
+        }
         if (this.activePage < this.middlePageNumber + 2) {
           pages.push(...this.getActualPages())
         }
@@ -158,12 +163,13 @@ export default {
       this.$router.push(`/catalog?page=${this.activePage}`)
     },
     hasMarginRight (pageNumber) {
-      return (pageNumber === 1 && this.activePage > 5) ||
-              (pageNumber === this.middlePageNumber && this.activePage > this.middlePageNumber + 2)
+      return this.totalPages >= 8 && ((pageNumber === 1 && this.activePage > 5) ||
+              (pageNumber === this.middlePageNumber && this.activePage > this.middlePageNumber + 2 &&
+              this.middlePageNumber < this.totalPages - 4))
     },
     hasMarginLeft (pageNumber) {
-      return (pageNumber === this.totalPages && this.activePage < this.totalPages - 5) ||
-              (pageNumber === this.middlePageNumber && this.activePage < this.middlePageNumber - 2)
+      return this.totalPages >= 8 && ((pageNumber === this.totalPages && this.activePage <= this.totalPages - 5) ||
+              (pageNumber === this.middlePageNumber && this.activePage < this.middlePageNumber - 2))
     },
     hasMobileMarginLeft (pageNumber) {
       return pageNumber === this.totalPages &&
@@ -200,8 +206,7 @@ export default {
       return this.activePage === this.totalPages && pageNumber < this.totalPages - 2 && pageNumber !== 1
     },
     isPageNumberNotActual (pageNumber) {
-      return this.activePage > this.totalPages - 5 &&
-              (pageNumber < this.activePage - 1 || pageNumber > this.activePage + 1) &&
+      return (pageNumber < this.activePage - 1 || pageNumber > this.activePage + 1) &&
               pageNumber !== this.totalPages && this.activePage !== this.totalPages && this.activePage !== 1
     }
   }
